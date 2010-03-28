@@ -1,0 +1,23 @@
+abstract
+--------
+
+prototype work to integrate an avro protocol handler to netty.
+
+contents
+--------
+
+avro mail client/server
+
+netty client/server
+
+todo
+----
+
+misc
+----
+
+attributions
+------------
+
+avro rpc quickstart
+netty "local time" example code

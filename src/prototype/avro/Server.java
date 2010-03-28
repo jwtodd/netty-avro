@@ -15,7 +15,7 @@ import java.util.concurrent.Executors;
 public class Server {
 
     private static SocketServer server;
-    private static final int DEFAULT_PORT = 8081;
+    private static final int DEFAULT_PORT = 9090;
 
     public static class MailImpl implements Mail {
 

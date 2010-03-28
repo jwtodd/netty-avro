@@ -1,9 +1,9 @@
 package prototype.netty;
 
-import LocalTimeProtocol.Continent;
-import LocalTimeProtocol.LocalTimes;
-import LocalTimeProtocol.Location;
-import LocalTimeProtocol.Locations;
+import prototype.netty.LocalTimeProtocol.Continent;
+import prototype.netty.LocalTimeProtocol.LocalTimes;
+import prototype.netty.LocalTimeProtocol.Location;
+import prototype.netty.LocalTimeProtocol.Locations;
 import org.jboss.netty.channel.*;
 
 import java.util.ArrayList;

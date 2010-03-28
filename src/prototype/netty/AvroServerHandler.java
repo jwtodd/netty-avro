@@ -9,12 +9,12 @@ import java.util.logging.Logger;
 
 import static java.util.Calendar.*;
 
-import LocalTimeProtocol.Continent;
-import LocalTimeProtocol.DayOfWeek;
-import LocalTimeProtocol.LocalTime;
-import LocalTimeProtocol.LocalTimes;
-import LocalTimeProtocol.Location;
-import LocalTimeProtocol.Locations;
+import prototype.netty.LocalTimeProtocol.Continent;
+import prototype.netty.LocalTimeProtocol.DayOfWeek;
+import prototype.netty.LocalTimeProtocol.LocalTime;
+import prototype.netty.LocalTimeProtocol.LocalTimes;
+import prototype.netty.LocalTimeProtocol.Location;
+import prototype.netty.LocalTimeProtocol.Locations;
 
 @ChannelPipelineCoverage("all")
 public class AvroServerHandler extends SimpleChannelUpstreamHandler {

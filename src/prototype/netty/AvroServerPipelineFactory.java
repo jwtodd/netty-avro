@@ -7,7 +7,7 @@ import org.jboss.netty.handler.codec.frame.LengthFieldPrepender;
 import org.jboss.netty.handler.codec.protobuf.ProtobufDecoder;
 import org.jboss.netty.handler.codec.protobuf.ProtobufEncoder;
 
-import LocalTimeProtocol.Locations;
+import prototype.netty.LocalTimeProtocol.Locations;
 import static org.jboss.netty.channel.Channels.pipeline;
 
 public class AvroServerPipelineFactory implements ChannelPipelineFactory {

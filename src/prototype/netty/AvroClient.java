@@ -63,7 +63,7 @@ public class AvroClient {
         System.err.println("Usage: " + AvroClient.class.getSimpleName() +
                 " <host> <port> <continent/city_name> ...");
         System.err.println("Example: " + AvroClient.class.getSimpleName() +
-                " localhost 8080 America/New_York Asia/Seoul");
+                " localhost 9091 America/New_York Asia/Seoul");
     }
 
     private static List<String> parseCities(String[] args, int offset) {

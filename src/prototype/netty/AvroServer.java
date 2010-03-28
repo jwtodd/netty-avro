@@ -15,7 +15,7 @@ public class AvroServer {
     private static final ChannelGroup channels = new DefaultChannelGroup("avro-server");
 
     public static void main(String[] args) throws Exception {
-        int port = args.length > 0 ? Integer.valueOf(args[0]) : 8080;
+        int port = args.length > 0 ? Integer.valueOf(args[0]) : 9091;
         NioServerSocketChannelFactory factory = new NioServerSocketChannelFactory(
                 Executors.newCachedThreadPool(),
                 Executors.newCachedThreadPool());

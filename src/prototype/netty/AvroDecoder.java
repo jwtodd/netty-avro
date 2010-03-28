@@ -43,7 +43,7 @@ public class AvroDecoder extends OneToOneDecoder {
 
         // todo: go from CBIS -> AVRO obj
         ChannelBufferInputStream stream = new ChannelBufferInputStream((ChannelBuffer) message);
-        List<ByteBuffer> bytes = toBytes(stream);
+//        List<ByteBuffer> bytes = toBytes(stream);
 
         return extensionRegistry == null ?
                 prototype.newBuilderForType().mergeFrom(stream).build() :
