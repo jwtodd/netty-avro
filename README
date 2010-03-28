@@ -8,7 +8,21 @@ contents
 
 avro mail client/server
 
+  # server
+  % java -classpath ./libs/avro-1.3.0.jar:./libs/avro-tools-1.3.0.jar:./libs/jackson-mapper-asl-1.4.0.jar:./libs/jackson-core-asl-1.4.0.jar:./libs/netty-3.1.5.GA.jar:./libs/protobuf-java-2.2.0.jar:./libs/slf4j-api-1.5.8.jar:./libs/slf4j-simple-1.5.8.jar prototype.avro.Server
+
+  # client
+  % java -classpath ./libs/avro-1.3.0.jar:./libs/avro-tools-1.3.0.jar:./libs/jackson-mapper-asl-1.4.0.jar:./libs/jackson-core-asl-1.4.0.jar:./libs/netty-3.1.5.GA.jar:./libs/protobuf-java-2.2.0.jar:./libs/slf4j-api-1.5.8.jar:./libs/slf4j-simple-1.5.8.jar prototype.avro.Client 9090 to-tammy from-james message-rocks
+
 netty client/server
+
+  # server
+  % java -classpath ./libs/avro-1.3.0.jar:./libs/avro-tools-1.3.0.jar:./libs/jackson-mapper-asl-1.4.0.jar:./libs/jackson-core-asl-1.4.0.jar:./libs/netty-3.1.5.GA.jar:./libs/protobuf-java-2.2.0.jar:./libs/slf4j-api-1.5.8.jar:./libs/slf4j-simple-1.5.8.jar prototype.netty.AvroServer
+
+  # client
+  % java -classpath ./libs/avro-1.3.0.jar:./libs/avro-tools-1.3.0.jar:./libs/jackson-mapper-asl-1.4.0.jar:./libs/jackson-core-asl-1.4.0.jar:./libs/netty-3.1.5.G
+A.jar:./libs/protobuf-java-2.2.0.jar:./libs/slf4j-api-1.5.8.jar:./libs/slf4j-sim
+ple-1.5.8.jar prototype.netty.AvroClient localhost 9091 America/New_York Asia/Seoul
 
 todo
 ----
