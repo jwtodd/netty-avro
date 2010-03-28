@@ -51,12 +51,12 @@ public class AvroClient {
 
         Channel channel = connectFuture.getChannel();
         AvroClientHandler handler = channel.getPipeline().get(AvroClientHandler.class);
-        List<String> response = handler.getLocalTimes(cities);
+        // List<String> response = handler.getLocalTimes(cities);
 
         channel.close().awaitUninterruptibly();
         bootstrap.releaseExternalResources();
 
-        printResults(cities, response);
+        // printResults(cities, response);
     }
 
     private static void printUsage() {

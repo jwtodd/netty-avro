@@ -1,6 +1,5 @@
 package prototype.netty;
 
-import com.google.protobuf.Message;
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelHandlerContext;
 import org.jboss.netty.channel.ChannelPipelineCoverage;
@@ -17,10 +16,7 @@ public class AvroEncoder extends OneToOneEncoder {
 
     @Override
     protected Object encode(ChannelHandlerContext context, Channel channel, Object message) throws Exception {
-        if (!(message instanceof Message)) {
-            return message;
-        }
-
-        return wrappedBuffer(((Message) message).toByteArray());
+        // Implement by doing Avro encoding here...
+        return message;
     }
 }
