@@ -20,7 +20,7 @@ public class Server {
     public static class MailImpl implements Mail {
 
         public Utf8 send(Message message) {
-            return new Utf8("Sent message to " + message.to.toString()
+            return new Utf8("(server)Sent message to " + message.to.toString()
                     + " from " + message.from.toString()
                     + " with body " + message.body.toString());
         }

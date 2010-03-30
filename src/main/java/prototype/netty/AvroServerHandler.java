@@ -32,10 +32,12 @@ public class AvroServerHandler extends SimpleChannelUpstreamHandler {
     public void messageReceived(ChannelHandlerContext context, MessageEvent event) throws IOException {
         ByteBuffer requestBuffer = (ByteBuffer) event.getMessage();
 
+        // note: buffer all request frames prior as a pre-req to instantiating a responder
+
         if (requestBuffer.capacity() > 0) {
             this.request.add(requestBuffer);
         } else {
-            // todo: response/content negotation: detect/instantiate respective responder
+            // todo: response/content negotiation: detect/instantiate respective responder
             Responder responder = new SpecificResponder(Mail.class, new Server.MailImpl());
             List<ByteBuffer> response = responder.respond(request);
             Channel channel = event.getChannel();
@@ -44,7 +46,7 @@ public class AvroServerHandler extends SimpleChannelUpstreamHandler {
                 channel.write(responseBuffer);
             }
 
-            ByteBuffer terminus = ByteBuffer.allocate(4).putInt(0);
+            ByteBuffer terminus = ByteBuffer.allocate(0);
 
             terminus.flip();
             channel.write(terminus);

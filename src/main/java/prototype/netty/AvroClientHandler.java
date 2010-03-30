@@ -36,6 +36,8 @@ public class AvroClientHandler extends SimpleChannelUpstreamHandler {
 
     @Override
     public void messageReceived(ChannelHandlerContext context, final MessageEvent event) {
+        // todo: handle response
+        int i = 0;
     }
 
     @Override

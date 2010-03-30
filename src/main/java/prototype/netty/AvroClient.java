@@ -56,7 +56,7 @@ public class AvroClient {
         channel.close().awaitUninterruptibly();
         bootstrap.releaseExternalResources();
 
-        // printResults(cities, response);
+//        printResults(cities, response);
     }
 
     private static void printUsage() {
