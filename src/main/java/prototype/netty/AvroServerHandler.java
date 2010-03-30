@@ -43,6 +43,11 @@ public class AvroServerHandler extends SimpleChannelUpstreamHandler {
             for (ByteBuffer responseBuffer : response) {
                 channel.write(responseBuffer);
             }
+
+            ByteBuffer terminus = ByteBuffer.allocate(4).putInt(0);
+
+            terminus.flip();
+            channel.write(terminus);
         }
     }
 
