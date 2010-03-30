@@ -16,8 +16,8 @@ public class AvroServerPipelineFactory implements ChannelPipelineFactory {
 
         pipeline.addLast("frameDecoder", new LengthFieldBasedFrameDecoder(1048576, 0, 4, 0, 4));
         pipeline.addLast("avroDecoder", new AvroDecoder());
-        pipeline.addLast("frameEncoder", new LengthFieldPrepender(4));
-        pipeline.addLast("avroEncoder", new AvroEncoder());
+//        pipeline.addLast("frameEncoder", new LengthFieldPrepender(4));
+//        pipeline.addLast("avroEncoder", new AvroEncoder());
         pipeline.addLast("handler", new AvroServerHandler());
 
         return pipeline;

@@ -50,6 +50,7 @@ public class Client {
             }
         }
 
+//        Mail proxy = (Mail) SpecificRequestor.getClient(Mail.class, client);
         Mail proxy = (Mail) SpecificRequestor.getClient(Mail.class, client);
         Message message = new Message();
 
