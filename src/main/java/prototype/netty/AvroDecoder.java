@@ -14,10 +14,8 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
-@ChannelPipelineCoverage("one")
+@ChannelPipelineCoverage("all")
 public class AvroDecoder extends OneToOneDecoder {
-
-    private List<ByteBuffer> buffers = new ArrayList<ByteBuffer>();
 
     @Override
     protected Object decode(ChannelHandlerContext context, Channel channel, Object message) throws Exception {
@@ -25,13 +23,11 @@ public class AvroDecoder extends OneToOneDecoder {
             return message;
         }
 
-        // note: see avro.SocketTransceiver.readBuffers()
         ChannelBufferInputStream stream = new ChannelBufferInputStream((ChannelBuffer)message);
-        // todo: ?multiple frames?
         int length = stream.available();
 
         if (length == 0) {
-            return buffers;
+            return ByteBuffer.allocate(0);
         }
 
         byte[] bytes = new byte[length];
@@ -41,8 +37,7 @@ public class AvroDecoder extends OneToOneDecoder {
         ByteBuffer buffer = ByteBuffer.allocate(length).put(bytes);
 
         buffer.flip();
-        buffers.add(buffer);
 
-        return buffers;
+        return buffer;
     }
 }

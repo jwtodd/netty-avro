@@ -8,14 +8,16 @@ import prototype.avro.Server;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@ChannelPipelineCoverage("all")
+@ChannelPipelineCoverage("one")
 public class AvroServerHandler extends SimpleChannelUpstreamHandler {
 
     private static final Logger logger = Logger.getLogger(AvroServerHandler.class.getName());
+    private List<ByteBuffer> request = new ArrayList<ByteBuffer>();
 
     @Override
     public void handleUpstream(ChannelHandlerContext context, ChannelEvent event) throws Exception {
@@ -28,14 +30,19 @@ public class AvroServerHandler extends SimpleChannelUpstreamHandler {
 
     @Override
     public void messageReceived(ChannelHandlerContext context, MessageEvent event) throws IOException {
-        // todo: response/content negotation: detect/instantiate respective responder
-        Responder responder = new SpecificResponder(Mail.class, new Server.MailImpl());
-        List<ByteBuffer> request = (List<ByteBuffer>)event.getMessage();
-        List<ByteBuffer> response = responder.respond(request);
-        Channel channel = event.getChannel();
+        ByteBuffer requestBuffer = (ByteBuffer) event.getMessage();
 
-        for (ByteBuffer responseBuffer : response) {
-            channel.write(responseBuffer);
+        if (requestBuffer.capacity() > 0) {
+            this.request.add(requestBuffer);
+        } else {
+            // todo: response/content negotation: detect/instantiate respective responder
+            Responder responder = new SpecificResponder(Mail.class, new Server.MailImpl());
+            List<ByteBuffer> response = responder.respond(request);
+            Channel channel = event.getChannel();
+
+            for (ByteBuffer responseBuffer : response) {
+                channel.write(responseBuffer);
+            }
         }
     }
 
