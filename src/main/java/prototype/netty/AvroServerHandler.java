@@ -8,16 +8,16 @@ import prototype.avro.Server;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static java.lang.String.format;
 
 @ChannelPipelineCoverage("one")
 public class AvroServerHandler extends SimpleChannelUpstreamHandler {
 
     private static final Logger logger = Logger.getLogger(AvroServerHandler.class.getName());
-    private List<ByteBuffer> request = new ArrayList<ByteBuffer>();
 
     @Override
     public void handleUpstream(ChannelHandlerContext context, ChannelEvent event) throws Exception {
@@ -30,36 +30,54 @@ public class AvroServerHandler extends SimpleChannelUpstreamHandler {
 
     @Override
     public void messageReceived(ChannelHandlerContext context, MessageEvent event) throws IOException {
-        ByteBuffer requestBuffer = (ByteBuffer) event.getMessage();
+        @SuppressWarnings({"unchecked"})
+        List<ByteBuffer> request = (List<ByteBuffer>) event.getMessage();
 
-        // note: buffer all request frames prior as a pre-req to instantiating a responder
+        logBuffer("request", request);
 
-        if (requestBuffer.capacity() > 0) {
-            this.request.add(requestBuffer);
-        } else {
-            // todo: response/content negotiation: detect/instantiate respective responder
+        if (!request.isEmpty()) {
+            // todo: responder factory
             Responder responder = new SpecificResponder(Mail.class, new Server.MailImpl());
             List<ByteBuffer> response = responder.respond(request);
-            Channel channel = event.getChannel();
 
-            for (ByteBuffer responseBuffer : response) {
-                channel.write(responseBuffer);
-            }
+            logBuffer("response", response);
 
-            ByteBuffer terminus = ByteBuffer.allocate(0);
-
-            terminus.flip();
-            channel.write(terminus);
+            writeResponse(event.getChannel(), response);
         }
+    }
+
+    private void logBuffer(String label, List<ByteBuffer> buffer) {
+        if (logger.isLoggable(Level.FINE)) {
+            logger.log(Level.FINE, format("%s buffers: %s", label, buffer.size()));
+
+            for (int i = 0; i < buffer.size(); i++) {
+                logger.log(Level.FINE, format("  buffer [%s] length: %s", i, buffer.get(i).limit()));
+            }
+        }
+    }
+
+    private void writeResponse(Channel channel, List<ByteBuffer> response) {
+        for (ByteBuffer buffer : response) {
+            channel.write(buffer);
+
+            logger.log(Level.FINE, format("wrote: %s", buffer.limit()));
+        }
+
+        ByteBuffer terminus = ByteBuffer.allocate(0);
+
+        terminus.flip();
+
+        channel.write(terminus);
     }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext context, ExceptionEvent event) {
+        //noinspection ThrowableResultOfMethodCallIgnored
         logger.log(Level.WARNING, "Unexpected exception from downstream.", event.getCause());
 
         event.getChannel().close();
     }
-//
+
 //    @Override
 //    public void channelOpen(ChannelHandlerContext context, ChannelStateEvent event) {
 //        AvroServer.getChannelGroup().add(event.getChannel());

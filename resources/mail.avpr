@@ -1,4 +1,4 @@
-{"namespace": "com.jivesoftware.eae.protocol.avro",
+{"namespace": "protocol.avro",
  "protocol": "Mail",
 
  "types": [
