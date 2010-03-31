@@ -1,9 +1,11 @@
 package prototype.netty;
 
+import org.apache.avro.util.Utf8;
 import org.jboss.netty.bootstrap.ClientBootstrap;
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelFuture;
 import org.jboss.netty.channel.socket.nio.NioClientSocketChannelFactory;
+import prototype.avro.Message;
 
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
@@ -19,19 +21,18 @@ public class AvroClient {
     private static final Logger logger = Logger.getLogger(AvroClient.class.getName());
 
     public static void main(String[] args) throws Exception {
-        if (args.length < 3) {
-            printUsage();
-
-            return;
+        if (args.length != 4) {
+            System.out.println("Usage: <port> <to> <from> <body>");
+            System.exit(1);
         }
 
         String host = args[0];
         int port = Integer.parseInt(args[1]);
-        Collection<String> cities = parseCities(args, 2);
+        Message message = new Message();
 
-        if (cities == null) {
-            return;
-        }
+        message.to = new Utf8(args[2]);
+        message.from = new Utf8(args[3]);
+        message.body = new Utf8(args[4]);
 
         NioClientSocketChannelFactory factory = new NioClientSocketChannelFactory(
                 Executors.newCachedThreadPool(),
@@ -50,45 +51,15 @@ public class AvroClient {
         }
 
         Channel channel = connectFuture.getChannel();
+        // todo: handler factory, to vary request protocol/message
         AvroClientHandler handler = channel.getPipeline().get(AvroClientHandler.class);
+        String response = handler.dispatch(message);
+
         // List<String> response = handler.getLocalTimes(cities);
 
         channel.close().awaitUninterruptibly();
         bootstrap.releaseExternalResources();
 
 //        printResults(cities, response);
-    }
-
-    private static void printUsage() {
-        System.err.println("Usage: " + AvroClient.class.getSimpleName() +
-                " <host> <port> <continent/city_name> ...");
-        System.err.println("Example: " + AvroClient.class.getSimpleName() +
-                " localhost 9091 America/New_York Asia/Seoul");
-    }
-
-    private static List<String> parseCities(String[] args, int offset) {
-        List<String> cities = new ArrayList<String>();
-
-        for (int i = offset; i < args.length; i++) {
-            if (!args[i].matches("^[_A-Za-z]+/[_A-Za-z]+$")) {
-                System.err.println("Syntax error: '" + args[i] + "'");
-                printUsage();
-
-                return null;
-            }
-
-            cities.add(args[i].trim());
-        }
-
-        return cities;
-    }
-
-    private static void printResults(Collection<String> cities, List<String> response) {
-        Iterator<String> i1 = cities.iterator();
-        Iterator<String> i2 = response.iterator();
-
-        while (i1.hasNext()) {
-            System.out.format("%28s: %s%n", i1.next(), i2.next());
-        }
     }
 }

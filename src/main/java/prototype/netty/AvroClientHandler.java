@@ -1,6 +1,7 @@
 package prototype.netty;
 
 import org.jboss.netty.channel.*;
+import prototype.avro.Message;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -34,9 +35,17 @@ public class AvroClientHandler extends SimpleChannelUpstreamHandler {
         super.channelOpen(context, event);
     }
 
+    public String dispatch(Message message) {
+        // todo: implement
+        // todo: handle response
+        // todo: netty/transceiver
+        // todo: write message, wait for response
+        return null;
+    }
+
     @Override
     public void messageReceived(ChannelHandlerContext context, final MessageEvent event) {
-        // todo: handle response
+        // todo: implement
         int i = 0;
     }
 

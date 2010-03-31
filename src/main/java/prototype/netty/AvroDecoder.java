@@ -23,21 +23,6 @@ public class AvroDecoder extends OneToOneDecoder {
             return message;
         }
 
-        ChannelBufferInputStream stream = new ChannelBufferInputStream((ChannelBuffer)message);
-        int length = stream.available();
-
-        if (length == 0) {
-            return ByteBuffer.allocate(0);
-        }
-
-        byte[] bytes = new byte[length];
-
-        stream.readFully(bytes);
-
-        ByteBuffer buffer = ByteBuffer.allocate(length).put(bytes);
-
-        buffer.flip();
-
-        return buffer;
+        return ((ChannelBuffer)message).toByteBuffer();
     }
 }

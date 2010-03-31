@@ -22,9 +22,6 @@ public class AvroEncoder extends OneToOneEncoder {
             return message;
         }
 
-        ByteBuffer buffer = (ByteBuffer)message;
-        byte[] bytes = buffer.array();
-
-        return wrappedBuffer(bytes);
+        return wrappedBuffer(((ByteBuffer)message).array());
     }
 }
