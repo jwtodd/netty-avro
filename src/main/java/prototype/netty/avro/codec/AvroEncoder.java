@@ -1,4 +1,4 @@
-package prototype.netty;
+package prototype.netty.avro.codec;
 
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelHandlerContext;

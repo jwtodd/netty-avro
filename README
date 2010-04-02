@@ -1,35 +1,35 @@
 abstract
---------
+  --------
 
-prototype work to integrate an avro protocol handler to netty.
+  prototype work to integrate an avro protocol handler to netty.
 
-contents
---------
+  contents
+  --------
 
-avro mail client/server
+  avro mail client/server
 
-  # server
-  % java -classpath ./libs/avro-1.3.0.jar:./libs/avro-tools-1.3.0.jar:./libs/jackson-mapper-asl-1.4.0.jar:./libs/jackson-core-asl-1.4.0.jar:./libs/netty-3.1.5.GA.jar:./libs/protobuf-java-2.2.0.jar:./libs/slf4j-api-1.5.8.jar:./libs/slf4j-simple-1.5.8.jar:out/production/Netty-avro prototype.avro.Server
+    # server
+    % java -classpath ./libs/avro-1.3.0.jar:./libs/avro-tools-1.3.0.jar:./libs/jackson-mapper-asl-1.4.0.jar:./libs/jackson-core-asl-1.4.0.jar:./libs/netty-3.1.5.GA.jar:./libs/protobuf-java-2.2.0.jar:./libs/slf4j-api-1.5.8.jar:./libs/slf4j-simple-1.5.8.jar:out/production/Netty-avro prototype.avro.Server
 
-  # client
-  % java -classpath ./libs/avro-1.3.0.jar:./libs/avro-tools-1.3.0.jar:./libs/jackson-mapper-asl-1.4.0.jar:./libs/jackson-core-asl-1.4.0.jar:./libs/netty-3.1.5.GA.jar:./libs/protobuf-java-2.2.0.jar:./libs/slf4j-api-1.5.8.jar:./libs/slf4j-simple-1.5.8.jar:out/production/Netty-avro prototype.avro.Client 9090 to-tammy from-james message-rocks
+    # client
+    % java -classpath ./libs/avro-1.3.0.jar:./libs/avro-tools-1.3.0.jar:./libs/jackson-mapper-asl-1.4.0.jar:./libs/jackson-core-asl-1.4.0.jar:./libs/netty-3.1.5.GA.jar:./libs/protobuf-java-2.2.0.jar:./libs/slf4j-api-1.5.8.jar:./libs/slf4j-simple-1.5.8.jar:out/production/Netty-avro prototype.avro.Client 9090 to-tammy from-james message-rocks
 
-netty client/server
+  netty client/server
 
-  # server
-  % java -classpath ./libs/avro-1.3.0.jar:./libs/avro-tools-1.3.0.jar:./libs/jackson-mapper-asl-1.4.0.jar:./libs/jackson-core-asl-1.4.0.jar:./libs/netty-3.1.5.GA.jar:./libs/protobuf-java-2.2.0.jar:./libs/slf4j-api-1.5.8.jar:./libs/slf4j-simple-1.5.8.jar:out/production/Netty-avro prototype.netty.AvroServer
+    # server
+    % java -classpath ./libs/avro-1.3.0.jar:./libs/avro-tools-1.3.0.jar:./libs/jackson-mapper-asl-1.4.0.jar:./libs/jackson-core-asl-1.4.0.jar:./libs/netty-3.1.5.GA.jar:./libs/protobuf-java-2.2.0.jar:./libs/slf4j-api-1.5.8.jar:./libs/slf4j-simple-1.5.8.jar:out/production/Netty-avro prototype.netty.avro.AvroServer
 
-  # client
-  % java -classpath ./libs/avro-1.3.0.jar:./libs/avro-tools-1.3.0.jar:./libs/jackson-mapper-asl-1.4.0.jar:./libs/jackson-core-asl-1.4.0.jar:./libs/netty-3.1.5.GA.jar:./libs/protobuf-java-2.2.0.jar:./libs/slf4j-api-1.5.8.jar:./libs/slf4j-simple-1.5.8.jar:out/production/Netty-avro  prototype.netty.AvroClient localhost 9091 America/New_York Asia/Seoul
+    # client
+    % java -classpath ./libs/avro-1.3.0.jar:./libs/avro-tools-1.3.0.jar:./libs/jackson-mapper-asl-1.4.0.jar:./libs/jackson-core-asl-1.4.0.jar:./libs/netty-3.1.5.GA.jar:./libs/protobuf-java-2.2.0.jar:./libs/slf4j-api-1.5.8.jar:./libs/slf4j-simple-1.5.8.jar:out/production/Netty-avro  prototype.netty.avro.AvroClient localhost 9091 America/New_York Asia/Seoul
 
-todo
-----
+  todo
+  ----
 
-misc
-----
+  misc
+  ----
 
-attributions
-------------
+  attributions
+  ------------
 
-avro rpc quickstart
-netty "local time" example code
+  avro rpc quickstart
+  netty "local time" example code

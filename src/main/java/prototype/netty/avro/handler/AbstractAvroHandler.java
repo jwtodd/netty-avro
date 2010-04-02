@@ -1,4 +1,4 @@
-package prototype.netty;
+package prototype.netty.avro.handler;
 
 import org.jboss.netty.channel.*;
 

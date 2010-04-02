@@ -1,4 +1,4 @@
-package prototype.netty;
+package prototype.netty.avro.handler;
 
 import org.apache.avro.ipc.Responder;
 import org.apache.avro.specific.SpecificResponder;
