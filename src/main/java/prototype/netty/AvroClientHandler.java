@@ -73,6 +73,8 @@ public class AvroClientHandler extends AbstractAvroHandler {
         Mail proxy = (Mail) SpecificRequestor.getClient(Mail.class, transceiver);
         Utf8 response = proxy.send(message);
 
+        logger.log(Level.FINE, String.format("response: %s", response));
+
         return response.toString();
     }
 
