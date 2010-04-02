@@ -1,15 +1,9 @@
 package prototype.netty.avro;
 
 import org.apache.avro.util.Utf8;
-import org.jboss.netty.bootstrap.ClientBootstrap;
-import org.jboss.netty.channel.Channel;
-import org.jboss.netty.channel.ChannelFuture;
-import org.jboss.netty.channel.socket.nio.NioClientSocketChannelFactory;
 import prototype.avro.Message;
-import prototype.netty.avro.handler.AvroClientHandler;
 
 import java.net.InetSocketAddress;
-import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

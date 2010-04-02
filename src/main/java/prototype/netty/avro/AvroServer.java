@@ -1,9 +1,6 @@
 package prototype.netty.avro;
 
 import org.jboss.netty.bootstrap.ServerBootstrap;
-import org.jboss.netty.channel.Channel;
-import org.jboss.netty.channel.group.ChannelGroup;
-import org.jboss.netty.channel.group.DefaultChannelGroup;
 import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
 
 import java.net.SocketAddress;
@@ -15,7 +12,7 @@ import static java.lang.String.format;
 
 public class AvroServer {
 
-    private static final ChannelGroup channels = new DefaultChannelGroup("avro-server");
+    //    private static final ChannelGroup channels = new DefaultChannelGroup("avro-server");
     private static final Logger logger = Logger.getLogger(AvroServer.class.getName());
 
     // todo: lifecycle (start, stop)
@@ -30,14 +27,15 @@ public class AvroServer {
 
         bootstrap.setPipelineFactory(new AvroServerPipelineFactory());
 
-        Channel channel = bootstrap.bind(address);
-
-        channels.add(channel);
-
-        // ChannelGroupFuture channelsFuture = channels.close();
-        //
-        // channelsFuture.awaitUninterruptibly();
-        // factory.releaseExternalResources();
+        bootstrap.bind(address);
+//        Channel channel = bootstrap.bind(address);
+//
+//        channels.add(channel);
+//
+//         ChannelGroupFuture channelsFuture = channels.close();
+//
+//         channelsFuture.awaitUninterruptibly();
+//         factory.releaseExternalResources();
     }
 
 //    static ChannelGroup getChannelGroup() {
