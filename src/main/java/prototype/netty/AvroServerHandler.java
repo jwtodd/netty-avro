@@ -19,7 +19,6 @@ public class AvroServerHandler extends AbstractAvroHandler {
 
     private static final Logger logger = Logger.getLogger(AvroServerHandler.class.getName());
 
-
     @Override
     public void messageReceived(ChannelHandlerContext context, MessageEvent event) throws IOException {
         @SuppressWarnings({"unchecked"})

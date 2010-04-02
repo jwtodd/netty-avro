@@ -31,16 +31,7 @@ abstract class AbstractAvroHandler extends SimpleChannelUpstreamHandler {
     }
 
     protected void writeResponse(Channel channel, List<ByteBuffer> response) {
-        for (ByteBuffer buffer : response) {
-            channel.write(buffer);
-
-            logger.log(Level.FINE, format("wrote: %s", buffer.limit()));
-        }
-
-        ByteBuffer terminus = ByteBuffer.allocate(0);
-
-        terminus.flip();
-        channel.write(terminus);
+        WriterUtil.write(channel, response);
     }
 
     protected void logBuffer(String label, List<ByteBuffer> buffer) {

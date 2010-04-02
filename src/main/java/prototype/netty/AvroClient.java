@@ -26,11 +26,11 @@ public class AvroClient {
 
         logger.log(Level.FINE, format("port: %s, to: %s, from: %s, body: %s", args[0], args[1], args[2], args[3]));
 
-        String host = args[0];
-        int port = Integer.parseInt(args[1]);
-        String to = args[2];
-        String from = args[3];
-        String body = args[4];
+//        String host = args[0];
+        int port = Integer.parseInt(args[0]);
+        String to = args[1];
+        String from = args[2];
+        String body = args[3];
 
         NioClientSocketChannelFactory factory = new NioClientSocketChannelFactory(
                 Executors.newCachedThreadPool(),
@@ -39,7 +39,7 @@ public class AvroClient {
 
         bootstrap.setPipelineFactory(new AvroClientPipelineFactory());
 
-        ChannelFuture connectFuture = bootstrap.connect(new InetSocketAddress(host, port));
+        ChannelFuture connectFuture = bootstrap.connect(new InetSocketAddress(/*host,*/ port));
 
         connectFuture.awaitUninterruptibly();
 
