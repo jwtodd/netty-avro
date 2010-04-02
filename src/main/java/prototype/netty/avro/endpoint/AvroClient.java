@@ -1,4 +1,4 @@
-package prototype.netty.avro;
+package prototype.netty.avro.endpoint;
 
 import org.jboss.netty.bootstrap.ClientBootstrap;
 import org.jboss.netty.channel.Channel;

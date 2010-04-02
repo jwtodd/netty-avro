@@ -2,6 +2,7 @@ package prototype.netty.avro;
 
 import org.apache.avro.util.Utf8;
 import prototype.avro.Message;
+import prototype.netty.avro.endpoint.AvroClient;
 
 import java.net.InetSocketAddress;
 import java.util.logging.Level;

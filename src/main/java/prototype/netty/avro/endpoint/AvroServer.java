@@ -1,7 +1,8 @@
-package prototype.netty.avro;
+package prototype.netty.avro.endpoint;
 
 import org.jboss.netty.bootstrap.ServerBootstrap;
 import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
+import prototype.netty.avro.endpoint.AvroServerPipelineFactory;
 
 import java.net.SocketAddress;
 import java.util.concurrent.Executors;

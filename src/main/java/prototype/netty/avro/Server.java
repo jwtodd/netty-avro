@@ -1,5 +1,7 @@
 package prototype.netty.avro;
 
+import prototype.netty.avro.endpoint.AvroServer;
+
 import java.net.InetSocketAddress;
 import java.util.logging.Level;
 import java.util.logging.Logger;
