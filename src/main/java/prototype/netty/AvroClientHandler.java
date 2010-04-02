@@ -48,7 +48,7 @@ public class AvroClientHandler extends AbstractAvroHandler {
 
         @Override
         public void writeBuffers(List<ByteBuffer> buffers) throws IOException {
-            WriterUtil.write(channel, buffers);
+            write(channel, buffers);
         }
     };
 

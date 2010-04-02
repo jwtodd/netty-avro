@@ -36,7 +36,7 @@ public class AvroServerHandler extends AbstractAvroHandler {
             logger.log(Level.FINE, format("return response"));
             logBuffer("response", response);
 
-            writeResponse(event.getChannel(), response);
+            write(event.getChannel(), response);
         }
     }
 

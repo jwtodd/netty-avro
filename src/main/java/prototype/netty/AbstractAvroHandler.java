@@ -30,8 +30,18 @@ abstract class AbstractAvroHandler extends SimpleChannelUpstreamHandler {
         event.getChannel().close();
     }
 
-    protected void writeResponse(Channel channel, List<ByteBuffer> response) {
-        WriterUtil.write(channel, response);
+    protected void write(Channel channel, List<ByteBuffer> buffers) {
+        for (ByteBuffer buffer : buffers) {
+            channel.write(buffer);
+
+            logger.log(Level.FINE, format("wrote: %s", buffer.limit()));
+        }
+
+        // todo: ?can we avoid reallocation?
+        ByteBuffer terminus = ByteBuffer.allocate(0);
+
+        terminus.flip();
+        channel.write(terminus);
     }
 
     protected void logBuffer(String label, List<ByteBuffer> buffer) {
