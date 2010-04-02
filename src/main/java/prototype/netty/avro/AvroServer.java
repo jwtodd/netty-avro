@@ -5,9 +5,8 @@ import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.group.ChannelGroup;
 import org.jboss.netty.channel.group.DefaultChannelGroup;
 import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
-import prototype.netty.avro.AvroServerPipelineFactory;
 
-import java.net.InetSocketAddress;
+import java.net.SocketAddress;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,12 +18,10 @@ public class AvroServer {
     private static final ChannelGroup channels = new DefaultChannelGroup("avro-server");
     private static final Logger logger = Logger.getLogger(AvroServer.class.getName());
 
-    // todo: add shutdown hooks/etc
+    // todo: lifecycle (start, stop)
+    public AvroServer(SocketAddress address) {
 
-    public static void main(String[] args) throws Exception {
-        int port = args.length > 0 ? Integer.valueOf(args[0]) : 9091;
-
-        logger.log(Level.FINE, format("port: %s", port));
+        logger.log(Level.FINE, format("instantiating with address: %s", address));
 
         NioServerSocketChannelFactory factory = new NioServerSocketChannelFactory(
                 Executors.newCachedThreadPool(),
@@ -33,14 +30,14 @@ public class AvroServer {
 
         bootstrap.setPipelineFactory(new AvroServerPipelineFactory());
 
-        Channel channel = bootstrap.bind(new InetSocketAddress(port));
+        Channel channel = bootstrap.bind(address);
 
         channels.add(channel);
 
-//        ChannelGroupFuture channelsFuture = channels.close();
-//
-//        channelsFuture.awaitUninterruptibly();
-//        factory.releaseExternalResources();
+        // ChannelGroupFuture channelsFuture = channels.close();
+        //
+        // channelsFuture.awaitUninterruptibly();
+        // factory.releaseExternalResources();
     }
 
 //    static ChannelGroup getChannelGroup() {

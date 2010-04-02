@@ -42,6 +42,6 @@ public class AvroServerHandler extends AbstractAvroHandler {
 
 //    @Override
 //    public void channelOpen(ChannelHandlerContext context, ChannelStateEvent event) {
-//        AvroServer.getChannelGroup().add(event.getChannel());
+//        Server.getChannelGroup().add(event.getChannel());
 //    }
 }
