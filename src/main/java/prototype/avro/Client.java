@@ -1,64 +1,46 @@
 package prototype.avro;
 
-import org.apache.avro.ipc.SocketServer;
-import org.apache.avro.ipc.SocketTransceiver;
-import org.apache.avro.specific.SpecificRequestor;
-import org.apache.avro.specific.SpecificResponder;
 import org.apache.avro.util.Utf8;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import static java.lang.String.format;
 
 public class Client {
 
-    private static SocketTransceiver client;
-
-    public static class MailImpl implements Mail {
-
-        public Utf8 send(Message message) {
-            return new Utf8("(client)Sent message to " + message.to.toString()
-                    + " from " + message.from.toString()
-                    + " with body " + message.body.toString());
-        }
-    }
+    private static final Logger logger = Logger.getLogger(Client.class.getName());
 
     public static void main(String[] args) throws IOException {
         if (args.length != 4) {
             System.out.println("Usage: <port> <to> <from> <body>");
+            System.exit(-1);
         }
 
-        final int port = Integer.valueOf(args[0]);
+        int port = Integer.valueOf(args[0]);
+        InetSocketAddress address = new InetSocketAddress(port);
+        AvroClient client = new AvroClient(address);
+        Message message = createMessage(args[1], args[2], args[3]);
+        String response = client.dispatch(message);
 
-        Executors.newSingleThreadExecutor().submit(
-                new Callable<Object>() {
-                    public Object call() throws IOException {
-                        client = new SocketTransceiver(new InetSocketAddress(port));
+        logger.log(Level.FINE, format("response: %s", response));
 
-                        return null;
-                    }
-                }
-        );
+        System.out.println("result: " + response);
 
-        while (client == null) {
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException ie) {
-                ie.printStackTrace();
-            }
-        }
+        client.dispose();
+    }
 
-        Mail proxy = (Mail) SpecificRequestor.getClient(Mail.class, client);
+    private static Message createMessage(String to, String from, String body) {
         Message message = new Message();
 
-        message.to = new Utf8(args[0]);
-        message.from = new Utf8(args[1]);
-        message.body = new Utf8(args[2]);
+        message.to = new Utf8(to);
+        message.from = new Utf8(from);
+        message.body = new Utf8(body);
 
-        System.out.println("Result: " + proxy.send(message));
+        logger.log(Level.FINE, format("created message: %s", message.toString()));
 
-        client.close();
+        return message;
     }
 }
